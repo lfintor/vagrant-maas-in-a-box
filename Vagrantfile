@@ -20,11 +20,10 @@ Vagrant.configure("2") do |config|
 			vbox.name = "maascontroller"
 			vbox.customize ["modifyvm", :id, "--memory", "1024"]
 		end
-		maas.vm.provision "shell", inline: <<-SHELL
-			apt update
-			apt upgrade
-			apt autoremove
-		SHELL  
+		maas.vm.provision "shell",
+			inline: "apt update",
+			inline: "apt upgrade",
+			inline: "apt autoremove"
 	end
 
 # Define node
@@ -33,17 +32,16 @@ Vagrant.configure("2") do |config|
 		node1.vm.hostname = "node1"
 		node1.vm.network :private_network, ip: "192.168.50.100"
 		node1.vm.provider "virtualbox" do |vbox|
-			vbox.gui = gui_mode
+			vbox.gui = false
 			vbox.name = "node1"
 			vbox.customize ["modifyvm", :id, "--memory", "512"]
 			vbox.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
 			vbox.customize ["modifyvm", :id, "--boot1", "net"]
 			vbox.customize ["modifyvm", :id, "--boot2", "disk"]
 		end
-		node1.vm.provision "shell", inline: <<-SHELL
-			apt update
-			apt upgrade
-			apt autoremove
-		SHELL
+		node1.vm.provision "shell",
+			inline: "apt update",
+			inline: "apt upgrade",
+			inline: "apt autoremove"
     end
 end
