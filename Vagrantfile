@@ -55,5 +55,25 @@ Vagrant.configure("2") do |config|
 			vbox.customize ["modifyvm", :id, "--boot1", "net"]
 			vbox.customize ["modifyvm", :id, "--boot2", "disk"]
 		end
+		node1.vm.provision "shell",
+			inline: "apt update"
+		node1.vm.provision "shell",
+			inline: "apt upgrade"
+		node1.vm.provision "shell",
+			inline: "apt autoremove"
+		node1.vm.provision "shell",
+			inline: "apt install language-pack-en-base"
+		node1.vm.provision "shell",
+			inline: "apt install python-apt"
+		node1.vm.provision "shell",
+			inline: "apt install python-pycurl"
+		node1.vm.provision "shell",
+			inline: "apt install ubuntu-cloud-keyring"
+		node1.vm.provision "shell",
+			inline: "apt install maas"
+		node1.vm.provision "shell",
+			inline: "apt install maas-dns"
+		node1.vm.provision "shell",
+			inline: "apt install maas-dhcp"
 	end
 end
