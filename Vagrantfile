@@ -21,13 +21,29 @@ Vagrant.configure("2") do |config|
 			vbox.customize ["modifyvm", :id, "--memory", "1024"]
 		end
 		maas.vm.provision "shell",
-			inline: "apt update",
-			inline: "apt upgrade",
+			inline: "apt update"
+		maas.vm.provision "shell",
+			inline: "apt upgrade"
+		maas.vm.provision "shell",
 			inline: "apt autoremove"
+		maas.vm.provision "shell",
+			inline: "apt install language-pack-en-base"
+		maas.vm.provision "shell",
+			inline: "apt install python-apt"
+		maas.vm.provision "shell",
+			inline: "apt install python-pycurl"
+		maas.vm.provision "shell",
+			inline: "apt install ubuntu-cloud-keyring"
+		maas.vm.provision "shell",
+			inline: "apt install maas"
+		maas.vm.provision "shell",
+			inline: "apt install maas-dns"
+		maas.vm.provision "shell",
+			inline: "apt install maas-dhcp"
 	end
 
 # Define node
-    config.vm.define "node1" do |node1|
+	config.vm.define "node1" do |node1|
 		node1.vm.box = "ubuntu/bionic64"
 		node1.vm.hostname = "node1"
 		node1.vm.network :private_network, ip: "192.168.50.100"
@@ -39,9 +55,5 @@ Vagrant.configure("2") do |config|
 			vbox.customize ["modifyvm", :id, "--boot1", "net"]
 			vbox.customize ["modifyvm", :id, "--boot2", "disk"]
 		end
-		node1.vm.provision "shell",
-			inline: "apt update",
-			inline: "apt upgrade",
-			inline: "apt autoremove"
-    end
+	end
 end
