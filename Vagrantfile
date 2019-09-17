@@ -18,28 +18,32 @@ Vagrant.configure("2") do |config|
 		maas.vm.provider "virtualbox" do |vbox|
 			vbox.gui = true
 			vbox.name = "maascontroller"
-			vbox.customize ["modifyvm", :id, "--memory", "1024"]
+			vbox.customize ["modifyvm", :id, "--memory", "2048"]
 		end
 		maas.vm.provision "shell",
 			inline: "apt update"
 		maas.vm.provision "shell",
-			inline: "apt upgrade"
+			inline: "apt upgrade -y"
 		maas.vm.provision "shell",
-			inline: "apt autoremove"
+			inline: "apt autoremove -y"
 		maas.vm.provision "shell",
-			inline: "apt install language-pack-en-base"
+			inline: "apt install language-pack-en-base -y"
 		maas.vm.provision "shell",
-			inline: "apt install python-apt"
+			inline: "apt install python-apt -y"
 		maas.vm.provision "shell",
-			inline: "apt install python-pycurl"
+			inline: "apt install python-pycurl -y"
 		maas.vm.provision "shell",
-			inline: "apt install ubuntu-cloud-keyring"
+			inline: "apt install ubuntu-cloud-keyring -y"
 		maas.vm.provision "shell",
-			inline: "apt install maas"
+			inline: "apt install maas -y"
 		maas.vm.provision "shell",
-			inline: "apt install maas-dns"
+			inline: "apt install maas-dns -y"
 		maas.vm.provision "shell",
-			inline: "apt install maas-dhcp"
+			inline: "apt install maas-dhcp -y"
+		maas.vm.provision "shell",
+			inline: "add-apt-repository ppa:juju/stable -y"
+		maas.vm.provision "shell",
+			inline: "apt update && sudo apt-get install juju -y"			
 	end
 
 # Define node
@@ -58,22 +62,8 @@ Vagrant.configure("2") do |config|
 		node1.vm.provision "shell",
 			inline: "apt update"
 		node1.vm.provision "shell",
-			inline: "apt upgrade"
+			inline: "apt upgrade -y"
 		node1.vm.provision "shell",
-			inline: "apt autoremove"
-		node1.vm.provision "shell",
-			inline: "apt install language-pack-en-base"
-		node1.vm.provision "shell",
-			inline: "apt install python-apt"
-		node1.vm.provision "shell",
-			inline: "apt install python-pycurl"
-		node1.vm.provision "shell",
-			inline: "apt install ubuntu-cloud-keyring"
-		node1.vm.provision "shell",
-			inline: "apt install maas"
-		node1.vm.provision "shell",
-			inline: "apt install maas-dns"
-		node1.vm.provision "shell",
-			inline: "apt install maas-dhcp"
+			inline: "apt autoremove -y"
 	end
 end
